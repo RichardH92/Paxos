@@ -8,27 +8,25 @@ type Acceptor struct {
 	NodeData
 }
 
-func (acceptor Acceptor) HandleMessage(msg Message, nodeData NodeData) (retMsg Message, err error) {
+func (acceptor Acceptor) HandleMessage(msg Message, nodeData NodeData, sender Sender) (err error) {
 	switch msg.Type {
 	case propose:
-		return acceptor.handlePropose(msg)
+		return acceptor.handlePropose(msg, nodeData, sender)
 
 	case prepare:
-		return acceptor.handlePrepare(msg)
+		return acceptor.handlePrepare(msg, nodeData, sender)
 
 	default:
-		return msg, errors.New("Invalid message type")
+		return errors.New("Invalid message type")
 	}
 }
 
-func (acceptor Acceptor) handlePropose(msg Message) (retMsg Message, err error) {
-	var ret Message
-	return ret, nil
+func (acceptor Acceptor) handlePropose(msg Message, nodeData NodeData, sender Sender) (err error) {
+	return nil
 }
 
-func (acceptor Acceptor) handlePrepare(msg Message) (retMsg Message, err error) {
-	var ret Message
-	return ret, nil
+func (acceptor Acceptor) handlePrepare(msg Message, nodeData NodeData, sender Sender) (err error) {
+	return nil
 }
 
 func (acceptor Acceptor) AddNode(addNode NodeData) (err error) {

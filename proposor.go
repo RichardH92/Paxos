@@ -6,11 +6,18 @@ type Proposor struct {
 	NodeData
 }
 
-func (proposor Proposor) HandleMessage(msg Message) (retMsg Message, err error) {
+func (proposor Proposor) HandleMessage(msg Message, nodeData NodeData, sender Sender) (err error) {
 	switch msg.Type {
+	case accepted:
+		//TODO: implement here
+		return nil
+
+	case accept:
+		//TODO: implement here
+		return nil
 
 	default:
-		return msg, errors.New("Invalid message type")
+		return errors.New("Invalid message type")
 	}
 }
 

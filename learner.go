@@ -6,20 +6,19 @@ type Learner struct {
 	NodeData
 }
 
-func (learner Learner) HandleMessage(msg Message, nodeData NodeData) (retMsg Message, err error) {
+func (learner Learner) HandleMessage(msg Message, nodeData NodeData, sender Sender) (err error) {
 	switch msg.Type {
 
 	case accepted:
 		return learner.handleAccepted(msg)
 
 	default:
-		return msg, errors.New("Invalid message type")
+		return errors.New("Invalid message type")
 	}
 }
 
-func (learner Learner) handleAccepted(msg Message) (retMsg Message, err error) {
-	var ret Message
-	return ret, nil
+func (learner Learner) handleAccepted(msg Message) (err error) {
+	return nil
 }
 
 func (learner Learner) AddNode(node NodeData) (err error) {
