@@ -16,8 +16,13 @@ const (
 	accepted
 )
 
-type Node struct {
+type NodeData struct {
 	Type NodeType
+}
+
+type Node interface {
+	HandleMessage(msg Message) (retMsg Message, err error)
+	AddNode(node NodeData) (err error)
 }
 
 type NodeType int

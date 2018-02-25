@@ -4,7 +4,11 @@ import (
 	"errors"
 )
 
-func HandleMessage(msg Message) (retMsg Message, err error) {
+type Acceptor struct {
+	NodeData
+}
+
+func (acceptor Acceptor) HandleMessage(msg Message) (retMsg Message, err error) {
 	switch msg.Type {
 	case propose:
 		return handlePropose(msg)
@@ -23,6 +27,16 @@ func handlePropose(msg Message) (retMsg Message, err error) {
 
 func handlePrepare(msg Message) (retMsg Message, err error) {
 
+}
+
+func (acceptor Acceptor) AddNode(node NodeData) (err error) {
+	switch node.Type {
+	case learner:
+		return nil
+
+	default:
+		return errors.New("Invalid node type")
+	}
 }
 
 func addLearner(node Node) {
