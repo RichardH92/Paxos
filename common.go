@@ -8,7 +8,8 @@ type MessageType int
 
 // iota reset: it will be 0.
 const (
-	prepare MessageType = iota
+	noop MessageType = iota
+	prepare
 	promise
 	propose
 	accept
@@ -26,4 +27,14 @@ const (
 	proposor NodeType = iota
 	acceptor
 	learner
+)
+
+var (
+	MessageTypeToNodeTypeHandlerMap = map[MessageType]NodeType{
+		prepare:  acceptor,
+		promise:  proposor,
+		propose:  acceptor,
+		accept:   proposor,
+		accepted: learner,
+	}
 )

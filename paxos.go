@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
-	fmt.Printf("%d", accepted)
+	fmt.Printf("%d", MessageTypeToNodeTypeHandlerMap[accepted])
 }
