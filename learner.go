@@ -6,7 +6,7 @@ type Learner struct {
 	NodeData
 }
 
-func (learner Learner) HandleMessage(msg Message, nodeData NodeData, sender Sender) (err error) {
+func (learner Learner) HandleMessage(msg Message, nodeData NodeData) (err error) {
 	switch msg.Type {
 
 	case accepted:

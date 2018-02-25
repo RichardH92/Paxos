@@ -17,11 +17,12 @@ const (
 )
 
 type NodeData struct {
-	Type NodeType
+	Type   NodeType
+	Sender Sender
 }
 
 type Node interface {
-	HandleMessage(msg Message, nodeData NodeData, sender Sender) (err error)
+	HandleMessage(msg Message, nodeData NodeData) (err error)
 	AddNode(node NodeData) (err error)
 	RemoveNode(node NodeData) (err error)
 }
