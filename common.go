@@ -21,8 +21,9 @@ type NodeData struct {
 }
 
 type Node interface {
-	HandleMessage(msg Message) (retMsg Message, err error)
+	HandleMessage(msg Message, nodeData NodeData) (retMsg Message, err error)
 	AddNode(node NodeData) (err error)
+	RemoveNode(node NodeData) (err error)
 }
 
 type NodeType int

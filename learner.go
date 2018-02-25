@@ -6,7 +6,7 @@ type Learner struct {
 	NodeData
 }
 
-func (learner Learner) HandleMessage(msg Message) (retMsg Message, err error) {
+func (learner Learner) HandleMessage(msg Message, nodeData NodeData) (retMsg Message, err error) {
 	switch msg.Type {
 
 	case accepted:
@@ -18,7 +18,8 @@ func (learner Learner) HandleMessage(msg Message) (retMsg Message, err error) {
 }
 
 func (learner Learner) handleAccepted(msg Message) (retMsg Message, err error) {
-
+	var ret Message
+	return ret, nil
 }
 
 func (learner Learner) AddNode(node NodeData) (err error) {
@@ -26,4 +27,8 @@ func (learner Learner) AddNode(node NodeData) (err error) {
 	default:
 		return errors.New("Invalid node type")
 	}
+}
+
+func (learner Learner) RemoveNode(node NodeData) (err error) {
+	return nil
 }
