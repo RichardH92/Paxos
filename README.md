@@ -1,2 +1,2 @@
 # Paxos
-Toy implementation of Paxos in Java
+Toy implementation of Paxos in Go
