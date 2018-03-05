@@ -6,6 +6,9 @@ import (
 
 type Acceptor struct {
 	NodeData
+	highestProposalNumSeen int
+
+	learners []NodeData
 }
 
 func (acceptor Acceptor) HandleMessage(msg Message, nodeData NodeData) (err error) {
@@ -22,10 +25,24 @@ func (acceptor Acceptor) HandleMessage(msg Message, nodeData NodeData) (err erro
 }
 
 func (acceptor Acceptor) handlePropose(msg Message, nodeData NodeData) (err error) {
+	if msg.ProposalNumber == acceptor.highestProposalNumSeen {
+		acceptedMsg := Message{Type: accepted, Value: msg.Value, ProposalNumber: msg.ProposalNumber}
+
+		for _, learner := range acceptor.learners {
+			learner.Sender.SendMessage(acceptedMsg, acceptor.NodeData)
+		}
+	}
+
 	return nil
 }
 
 func (acceptor Acceptor) handlePrepare(msg Message, nodeData NodeData) (err error) {
+	if msg.ProposalNumber > acceptor.highestProposalNumSeen {
+		acceptor.highestProposalNumSeen = msg.ProposalNumber
+		promiseMsg := Message{Type: promise, Value: "", ProposalNumber: msg.ProposalNumber}
+		nodeData.Sender.SendMessage(promiseMsg, acceptor.NodeData)
+	}
+
 	return nil
 }
 

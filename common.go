@@ -1,7 +1,9 @@
 package main
 
 type Message struct {
-	Type MessageType
+	Type           MessageType
+	Value          string
+	ProposalNumber int
 }
 
 type MessageType int
