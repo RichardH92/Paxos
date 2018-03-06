@@ -12,7 +12,7 @@ func main() {
 
 	switch MessageTypeToNodeTypeHandlerMap[msg.Type] {
 	case proposor:
-		err := proposorNode.HandleMessage(msg, nodeData)
+		err := proposorNode.HandleMessage(msg, &nodeData)
 
 		if err != nil {
 			//handle error here
@@ -26,7 +26,7 @@ func main() {
 		}
 
 	case learner:
-		err := learnerNode.HandleMessage(msg, nodeData)
+		err := learnerNode.HandleMessage(msg, &nodeData)
 
 		if err != nil {
 			//handle error here
