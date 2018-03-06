@@ -7,11 +7,10 @@ import (
 type Acceptor struct {
 	NodeData
 	highestProposalNumSeen int
-
-	learners []NodeData
+	learners               []*NodeData
 }
 
-func (acceptor Acceptor) HandleMessage(msg Message, nodeData NodeData) (err error) {
+func (acceptor *Acceptor) HandleMessage(msg Message, nodeData *NodeData) (err error) {
 	switch msg.Type {
 	case propose:
 		return acceptor.handlePropose(msg, nodeData)
@@ -24,7 +23,7 @@ func (acceptor Acceptor) HandleMessage(msg Message, nodeData NodeData) (err erro
 	}
 }
 
-func (acceptor Acceptor) handlePropose(msg Message, nodeData NodeData) (err error) {
+func (acceptor *Acceptor) handlePropose(msg Message, nodeData *NodeData) (err error) {
 	if msg.ProposalNumber == acceptor.highestProposalNumSeen {
 		acceptedMsg := Message{Type: accepted, Value: msg.Value, ProposalNumber: msg.ProposalNumber}
 
@@ -36,7 +35,7 @@ func (acceptor Acceptor) handlePropose(msg Message, nodeData NodeData) (err erro
 	return nil
 }
 
-func (acceptor Acceptor) handlePrepare(msg Message, nodeData NodeData) (err error) {
+func (acceptor *Acceptor) handlePrepare(msg Message, nodeData *NodeData) (err error) {
 	if msg.ProposalNumber > acceptor.highestProposalNumSeen {
 		acceptor.highestProposalNumSeen = msg.ProposalNumber
 		promiseMsg := Message{Type: promise, Value: "", ProposalNumber: msg.ProposalNumber}
@@ -46,7 +45,7 @@ func (acceptor Acceptor) handlePrepare(msg Message, nodeData NodeData) (err erro
 	return nil
 }
 
-func (acceptor Acceptor) AddNode(addNode NodeData) (err error) {
+func (acceptor *Acceptor) AddNode(addNode *NodeData) (err error) {
 	switch addNode.Type {
 	case learner:
 		acceptor.addLearner(addNode)
@@ -57,11 +56,11 @@ func (acceptor Acceptor) AddNode(addNode NodeData) (err error) {
 	}
 }
 
-func (acceptor Acceptor) addLearner(addNode NodeData) {
+func (acceptor Acceptor) addLearner(addNode *NodeData) {
 
 }
 
-func (accetor Acceptor) RemoveNode(node NodeData) (err error) {
+func (accetor Acceptor) RemoveNode(node *NodeData) (err error) {
 	switch node.Type {
 	case learner:
 		return nil

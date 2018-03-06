@@ -19,7 +19,7 @@ func main() {
 		}
 
 	case acceptor:
-		err := acceptorNode.HandleMessage(msg, nodeData)
+		err := acceptorNode.HandleMessage(msg, &nodeData)
 
 		if err != nil {
 			//handle error here
